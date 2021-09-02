@@ -2,21 +2,6 @@ import random as rand
 import string as str
 import re
 
-# check if PW is at least 8 chars long with at least 1 symbol, 1 number, 1 uppercase, and 1 lowercase
-#def checkPassword(password):
-#    if (len(password) < 8):
-#        return False
-#    elif (re.search('[0-9]', password) == None):
-#        return False
-#    elif (re.search('[a-z]', password) == None):
-#        return False
-#    elif (re.search('[A-Z]', password) == None):
-#        return False
-#    elif (re.search('[!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]', password) == None):
-#        return False
-#    else:
-#        return True
-
 # generate random 8 char long PW with at least 1 symbol, 1 number, 1 uppercase, and 1 lowercase
 def generatePassword(keyword=""):
     lower = str.ascii_lowercase
@@ -26,13 +11,6 @@ def generatePassword(keyword=""):
 
     # all possible characters for PW
     possibleChars = lower + upper + sym + num
-
-    # randomly choose 8 chars for PW. If PW is invalid, regenerate new PW if invalid
-    #password = ""
-    # while (checkPassword(password) == False):
-    #    password = ''.join(rand.choice(possibleChars) for _ in range(8))
-    #if len(keyword) < 8:
-    #    keyword += "**"
 
     # Convert keyword to list of chars, then add or replace chars to create a strong password
     keywordChars = [char for char in keyword]
@@ -58,11 +36,16 @@ def generatePassword(keyword=""):
     #return keyword
 
 # Console
+print("Select password length: ")
+length = int(input())
 keyword = input("Please enter the keyword to base password on: ")
 
-#TODO: Replace this with adding more random characters to keyword
-if len(keyword) < 8:
-    print("Error: Keyword must be 8 characters long")
+if len(keyword) < length or len(keyword) < 8:
+    if (length > 8):
+        # TODO: add characters to make it 8 chars long
+        print("Error: Keyword must be" + length + "characters long")
+    else:
+        print("Error: Keyword must be 8 characters long")
     keyword = input("Please enter the keyword to base password on: ")
 
 # test: 10 tries
