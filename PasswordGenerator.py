@@ -8,35 +8,35 @@ def generatePassword(keyword=""):
     upper = str.ascii_uppercase
     sym = str.punctuation
     num = str.digits
-
-    # all possible characters for PW
     possibleChars = lower + upper + sym + num
 
-    # Convert keyword to list of chars, then add or replace chars to create a strong password
-    keywordChars = [char for char in keyword]
-    print(keywordChars)
+    # add chars to make it 8 chars long if len(keyword) < 8 
+    if (len(keyword < 8)):
+        keyword = addChars(keyword)
 
-    # TODO: modify this so that it replaces keyword w/ random char from matching pool
+    # Convert keyword to list of chars, then add or replace chars
+    keywordChars = [char for char in keyword]
+    charsToReplace = rand.sample(range(0,len(keyword)), k=4)
+
     if (re.search('[!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]', keyword) == None):
-        addSymbol = rand.choice(sym)
-        keywordChars[7] = addSymbol
+        keywordChars[charsToReplace[0]] = rand.choice(sym)
     if (re.search('[0-9]', keyword) == None):
-        addNum = rand.choice(num)
-        keywordChars[6] = addNum
+        keywordChars[charsToReplace[1]] = rand.choice(num)
     if (re.search('[a-z]', keyword) == None):
-        addLowercase = rand.choice(lower)
-        keywordChars[5] = addLowercase
+        keywordChars[charsToReplace[2]] = rand.choice(lower)
     if (re.search('[A-Z]', keyword) == None):
-        addUppercase = rand.choice(upper)
-        keywordChars[4] = addUppercase
+        keywordChars[charsToReplace[3]] = rand.choice(upper)
     
     # Re-convert to string
     keyword = "".join(keywordChars)
     print(keyword)
-    #return keyword
+
+def addChars(keyword):
+    return keyword+'xxxx'
 
 # Console
 print("Select password length: ")
+# TODO: add error handling to accept only integers
 length = int(input())
 keyword = input("Please enter the keyword to base password on: ")
 
@@ -46,7 +46,7 @@ if len(keyword) < length or len(keyword) < 8:
         print("Error: Keyword must be" + length + "characters long")
     else:
         print("Error: Keyword must be 8 characters long")
-    keyword = input("Please enter the keyword to base password on: ")
+    print("Your password is " + addChars(keyword))
 
 # test: 10 tries
 for _ in range(10):
